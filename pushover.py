@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 from logger import logger
 
 class Pushover:
+    HEADERS = {'Content-Type': 'application/json'}
+    PUSHOVER_URL = 'https://api.pushover.net/1/messages.json'
+
     def __init__(self):
         load_dotenv()
 
@@ -18,9 +21,6 @@ class Pushover:
         if not self.user or not self.zappy_token or not self.logs_token:
             logger.error("One or more required environment variables are missing.")
             raise ValueError("Missing environment variables for Pushover configuration.")
-
-        self.headers = {'Content-Type': 'application/json'}
-        self.pushover_url = 'https://api.pushover.net/1/messages.json'
 
     def send_notification(self, msg, priority=0, is_log=False):
         """
@@ -42,7 +42,7 @@ class Pushover:
         }
 
         try:
-            requests.post(self.pushover_url, json=params, headers=self.headers)
+            requests.post(self.PUSHOVER_URL, json=params, headers=self.HEADERS)
             logger.info(f"Notification sent successfully. msg = {msg}")
         except Exception as e:
             logger.exception("An error occurred while sending a notification to Pushover")
