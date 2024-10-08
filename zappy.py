@@ -1,14 +1,14 @@
 from logger import logger
 from pushover import Pushover
 from derozap import Derozap
-
-STATE_FILE = 'zappy_state.json'
+from state_machine import StateMachine
 
 def main():
     def handle_zap_status(zap_status):
         if isinstance(zap_status, bool):
             if zap_status:
                 p.send_notification(dz.ZAPPED_ACK_MESSAGE)
+                sm.update_state(True)
             else:
                 p.send_notification(dz.NOT_ZAPPED_ACK_MESSAGE, priority=-2)
         else:
@@ -16,8 +16,12 @@ def main():
 
     p = Pushover()
     dz = Derozap()
+    sm = StateMachine()
 
-    handle_zap_status(dz.get_zap_status())
+    if not sm.zapped_today:
+        handle_zap_status(dz.get_zap_status())
+    else:
+        logger.debug("Zapped already. Skip run.")
 
 if __name__ == '__main__':
     main()
