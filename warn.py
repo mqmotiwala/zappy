@@ -1,5 +1,6 @@
-from logger import logger
-from pushover import Pushover
+from helpers.logger import logger
+from helpers.pushover import Pushover
+
 from state_machine import StateMachine
 
 WARN_MSG = "Reminder: you haven't zapped yet today!"

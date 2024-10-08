@@ -1,6 +1,7 @@
-from logger import logger
-from pushover import Pushover
-from derozap import Derozap
+from helpers.logger import logger
+from helpers.pushover import Pushover
+from helpers.derozap import Derozap
+
 from state_machine import StateMachine
 
 def main():
