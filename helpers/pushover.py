@@ -14,11 +14,11 @@ class Pushover:
         load_dotenv()
 
         self.user = os.getenv('PUSHOVER_USER')
-        self.zappy_token = os.getenv('PUSHOVER_ZAPPY_TOKEN')
-        self.logs_token = os.getenv('PUSHOVER_LOGS_TOKEN')
+        self.app_token = os.getenv('PUSHOVER_APP_TOKEN')
+        self.log_token = os.getenv('PUSHOVER_LOG_TOKEN')
         self.app_name = 'Zappy'
 
-        if not self.user or not self.zappy_token or not self.logs_token:
+        if not self.user or not self.app_token or not self.log_token:
             logger.error("One or more required environment variables are missing.")
             raise ValueError("Missing environment variables for Pushover configuration.")
 
@@ -29,13 +29,13 @@ class Pushover:
         Args:
             msg (str): The message text to be sent via Pushover.
             priority (int): Notification priority, as defined by the Pushover API specification.
-            is_log (bool): If True, the notification is sent to the Logs project using PUSHOVER_LOGS_TOKEN.
-                        Otherwise, it is logged to the Zappy project using PUSHOVER_ZAPPY_TOKEN.
+            is_log (bool): If True, the notification is sent to the Logs project using PUSHOVER_LOG_TOKEN.
+                        Otherwise, it is logged to the app project using PUSHOVER_APP_TOKEN.
         """
 
         params = {
             'title': self.app_name,
-            'token': self.logs_token if is_log else self.zappy_token,
+            'token': self.log_token if is_log else self.app_token,
             'user': self.user,
             'message': msg,
             'priority': priority
