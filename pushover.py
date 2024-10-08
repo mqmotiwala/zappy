@@ -34,7 +34,7 @@ class Pushover:
         """
 
         params = {
-            'title': self.app_name
+            'title': self.app_name,
             'token': self.logs_token if is_log else self.zappy_token,
             'user': self.user,
             'message': msg,
