@@ -2,3 +2,4 @@
 config.ini
 __pycache__/*
 *.log
+zappy_state.json
