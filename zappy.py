@@ -11,7 +11,7 @@ def main():
                 p.send_notification(dz.ZAPPED_ACK_MESSAGE)
                 sm.update_state(True)
             else:
-                p.send_notification(dz.NOT_ZAPPED_ACK_MESSAGE, priority=-2)
+                p.send_notification(dz.NOT_ZAPPED_ACK_MESSAGE, priority=-2, is_log=True)
         else:
             p.send_notification(zap_status, priority=-1, is_log=True)
 
