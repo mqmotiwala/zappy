@@ -4,7 +4,7 @@ import traceback
 
 import os
 from dotenv import load_dotenv
-from helpers.logger import logger
+from logger import logger
 
 class Pushover:
     HEADERS = {'Content-Type': 'application/json'}

@@ -2,7 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-from helpers.logger import logger
+from logger import logger
 
 class Derozap:
     ZAPPED_DERO_ZAP_TAG_TEXT = 'You got zapped today!'

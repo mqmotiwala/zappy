@@ -1,19 +1,20 @@
 import os
 import json
-from helpers.logger import logger
+from logger import logger
 
 class StateMachine:
     STATE_FILE = 'zappy_state.json'
     DEFAULT_ZAPPED_STATUS = False
     STATE_MACHINE_ZAPPED_STATUS_KEY = 'zapped_today'
 
-    def __init__(self):
+    def __init__(self, root):
+        self.state_file_path = os.path.join(root, self.STATE_FILE)
         self.current_state = self.load_state()
         self.zapped_today = self.current_state.get(self.STATE_MACHINE_ZAPPED_STATUS_KEY, self.DEFAULT_ZAPPED_STATUS)
 
     def load_state(self):
-        if os.path.exists(self.STATE_FILE):
-            with open(self.STATE_FILE, 'r') as file:
+        if os.path.exists(self.state_file_path):
+            with open(self.state_file_path, 'r') as file:
                 try:
                     return json.load(file)
                 except json.JSONDecodeError:
@@ -27,7 +28,7 @@ class StateMachine:
         }
 
         logger.debug(f"Zappy state set to {zapped_today}")
-        with open(self.STATE_FILE, 'w') as file:
+        with open(self.state_file_path, 'w') as file:
             json.dump(state, file)
 
 if __name__ == '__main__':
