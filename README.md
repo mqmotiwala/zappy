@@ -28,11 +28,11 @@ Notifications are sent using Pushover to acknowledge Zaps or warn that a Zap has
 
 ## Usage
 
-The main file, `zappy.py`, is intended to be called periodically by a cron job (or other task scheduler) every 5 minutes to check the zap status. However, it keeps track of whether the zap status has already been acknowledged for the day, so no redundant notifications are sent.
+The main file, `main.py`, is intended to be called periodically by a cron job (or other task scheduler) at any desired frequency to check the zap status. However, it keeps track of whether the zap status has already been acknowledged for the day, so no redundant notifications are sent.
 
 ## File Descriptions
 
-- **`zappy.py`**: The main script for managing zap status checks.
+- **`main.py`**: The main script for managing zap status checks.
 - **`pushover.py`**: Contains the `Pushover` class for sending notifications to the Pushover service.
 - **`derozap.py`**: Contains the `Derozap` class for making requests to the Derozap website to get the zap status.
 - **`warn.py`**: Sends a warning notification if a zap is not received.
