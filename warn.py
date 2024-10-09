@@ -1,4 +1,5 @@
-from logger import logger
+import os
+from helpers.logger import setup_logger, logger
 from helpers.pushover import Pushover
 from state_machine import StateMachine
 
@@ -10,8 +11,12 @@ def warn():
         Cron will trigger this script daily at 9pm.
     """
 
+    # get reference to root folder for absolute path of project files
+    root = os.path.dirname(__file__)
+
+    setup_logger(root)
+    sm = StateMachine(root)
     p = Pushover()
-    sm = StateMachine()
 
     if not sm.zapped_today:
         p.send_notification(WARN_MSG)

@@ -1,6 +1,6 @@
 import os
 import json
-from logger import logger
+from helpers.logger import logger
 
 class StateMachine:
     STATE_FILE = 'zappy_state.json'

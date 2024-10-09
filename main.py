@@ -1,9 +1,9 @@
 import os
-from logger import logger
 from helpers.pushover import Pushover
 from helpers.derozap import Derozap
 from helpers.database import Database
 from state_machine import StateMachine
+from helpers.logger import setup_logger, logger
 
 def main():
     def handle_zap_status(zap_status):
@@ -18,10 +18,11 @@ def main():
     # get reference to root folder for absolute path of project files
     root = os.path.dirname(__file__)
 
+    setup_logger(root)
+    db = Database(root)
+    sm = StateMachine(root)
     p = Pushover()
     dz = Derozap()
-    sm = StateMachine(root)
-    db = Database(root)
 
     if not sm.zapped_today:
         handle_zap_status(dz.get_zap_status())
