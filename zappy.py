@@ -1,6 +1,7 @@
 from helpers.logger import logger
 from helpers.pushover import Pushover
 from helpers.derozap import Derozap
+from helpers.database import Database
 
 from state_machine import StateMachine
 
@@ -10,6 +11,7 @@ def main():
             if zap_status:
                 p.send_notification(dz.ZAPPED_ACK_MESSAGE)
                 sm.update_state(True)
+                db.log_zap()
             else:
                 p.send_notification(dz.NOT_ZAPPED_ACK_MESSAGE, priority=-2, is_log=True)
         else:
@@ -18,6 +20,7 @@ def main():
     p = Pushover()
     dz = Derozap()
     sm = StateMachine()
+    db = Database()
 
     if not sm.zapped_today:
         handle_zap_status(dz.get_zap_status())
