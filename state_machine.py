@@ -1,6 +1,6 @@
 import os
 import json
-from helpers.logger import logger
+from helpers.logger import setup_logger, logger
 
 class StateMachine:
     STATE_FILE = 'zappy_state.json'
@@ -37,5 +37,10 @@ if __name__ == '__main__':
         cron will run this script daily at midnight, resetting the state
     """
 
-    s = StateMachine()
+    # get reference to root folder for absolute path of project files
+    root = os.path.dirname(__file__)
+
+    setup_logger(root)
+    s = StateMachine(root)
+
     s.update_state(False)
