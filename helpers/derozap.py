@@ -114,7 +114,7 @@ class Derozap:
             'rpid': '1050'
 
         Args:
-            start_date (str)
+            start_date (str): start date in ('%m/%d/%Y') format
 
         Returns:
             str | None: number of zaps since start date as string, or None if error.
@@ -187,8 +187,8 @@ class Derozap:
 
         stats = []
         for timeframe, start_date in start_dates.items():
-            num_zaps = self._get_zaps_since_date(start_date)
-            num_days = (today - start_date).days
+            num_zaps = self._get_zaps_since_date(start_date.strftime('%m/%d/%Y'))
+            num_days = (today - start_date).days + 1 # + 1 to include today's date in num_days
 
             if num_zaps is not None:
                 stats_row = (
