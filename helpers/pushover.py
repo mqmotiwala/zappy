@@ -38,7 +38,8 @@ class Pushover:
             'token': self.log_token if is_log else self.app_token,
             'user': self.user,
             'message': msg,
-            'priority': priority
+            'priority': priority,
+            'monospace': 1
         }
 
         try:

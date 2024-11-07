@@ -9,7 +9,7 @@ def main():
     def handle_zap_status(zap_status):
         if isinstance(zap_status, bool):
             if zap_status:
-                p.send_notification(dz.ZAPPED_ACK_MESSAGE)
+                p.send_notification(dz.ZAPPED_ACK_MESSAGE + "\n\n" + dz.stats_summary)
                 sm.update_state(True)
                 db.log_zap()
         else:
