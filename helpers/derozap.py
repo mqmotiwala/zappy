@@ -130,12 +130,12 @@ class Derozap:
         try:
             response = self.session.get(self.ZAP_URL, params=params)
             response.raise_for_status()
-            logger.info("Successfully executed commuter report request.")
+            logger.info(f"Successfully executed commuter report request for zap activity since {start_date}.")
 
             return Derozap._process_commuter_report(response.text)
 
         except requests.exceptions.RequestException as e:
-            error_msg = "An error occurred while executing commuter report request"
+            error_msg = f"An error occurred while executing commuter report request for zap activity since {start_date}."
             logger.exception(error_msg)
 
             return None
