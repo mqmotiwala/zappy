@@ -1,6 +1,7 @@
 import os
 from helpers.logger import setup_logger, logger
 from helpers.pushover import Pushover
+from helpers.derozap import Derozap
 from state_machine import StateMachine
 
 WARN_MSG = "Reminder: you haven't zapped yet today!"
@@ -17,9 +18,10 @@ def warn():
     setup_logger(root)
     sm = StateMachine(root)
     p = Pushover()
+    dz = Derozap()
 
     if not sm.zapped_today:
-        p.send_notification(WARN_MSG)
+        p.send_notification(WARN_MSG + "\n\n" + dz.stats_summary)
     else:
         logger.debug("Zapped already. Skip warning.")
 

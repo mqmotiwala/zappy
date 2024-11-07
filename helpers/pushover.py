@@ -44,6 +44,6 @@ class Pushover:
 
         try:
             requests.post(self.PUSHOVER_URL, json=params, headers=self.HEADERS)
-            logger.info(f"Notification sent successfully. msg = {msg}")
+            logger.info(f"Notification sent successfully.")
         except Exception as e:
             logger.exception("An error occurred while sending a notification to Pushover")
