@@ -190,13 +190,14 @@ class Derozap:
             num_zaps = self._get_zaps_since_date(start_date)
             num_days = (today - start_date).days
 
-            stats_row = (
-                timeframe,
-                str(num_zaps) + "/" + str(num_days),
-                f"{100 * int(num_zaps) / int(num_days):.0f}%",
-                f"${15 * int(num_zaps):,.0f}"
-            )
+            if num_zaps is not None:
+                stats_row = (
+                    timeframe,
+                    str(num_zaps) + "/" + str(num_days),
+                    f"{100 * int(num_zaps) / int(num_days):.0f}%",
+                    f"${15 * int(num_zaps):,.0f}"
+                )
 
-            stats.append(stats_row)
+                stats.append(stats_row)
 
         return tabulate(stats, tablefmt="plain")
